@@ -1,12 +1,12 @@
-import {App, Col, Row, Select, Typography} from "antd";
-import {useEffect, useState} from "react";
-import Terminal, {ColorMode, TerminalOutput} from "react-terminal-ui";
+import { App, Col, Row, Select, Typography } from "antd";
+import { useEffect, useState } from "react";
+import Terminal, { TerminalOutput } from "react-terminal-ui";
 import AsyncButton from "../components/AsyncButton.tsx";
-import {useWS} from "../hooks/useWS.ts";
-import {useApi} from "../hooks/useApi.ts";
-import {StyledTerminal} from "../components/StyledTerminal.tsx";
+import { MowerActions } from "../components/MowerActions.tsx";
+import { StyledTerminal } from "../components/StyledTerminal.tsx";
+import { useApi } from "../hooks/useApi.ts";
+import { useWS } from "../hooks/useWS.ts";
 import ansiHTML from "../utils/ansi.ts";
-import {MowerActions} from "../components/MowerActions.tsx";
 
 type ContainerList = { value: string, label: string, status: "started" | "stopped", labels: Record<string, string> };
 export const LogsPage = () => {
