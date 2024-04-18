@@ -1,5 +1,5 @@
 import {Outlet, useMatches, useNavigate} from "react-router-dom";
-import {Layout, Menu, MenuProps} from "antd";
+import {Layout, Row, Menu, MenuProps} from "antd";
 import {
     HeatMapOutlined,
     MessageOutlined,
@@ -8,9 +8,10 @@ import {
     RocketOutlined,
     SettingOutlined
 } from '@ant-design/icons';
+import {MowerStatus} from "../components/MowerStatus.tsx";
 import {useEffect} from "react";
 
-let menu: MenuProps['items'] = [
+const menu: MenuProps['items'] = [
     {
         key: '/openmower',
         label: 'OpenMower',
@@ -43,7 +44,7 @@ let menu: MenuProps['items'] = [
     }
 ];
 
-export default () => {
+const Root = () => {
     const route = useMatches()
     const navigate = useNavigate()
     useEffect(() => {
@@ -54,25 +55,34 @@ export default () => {
         }
     }, [route, navigate])
     return (
-        <Layout style={{height: "100%"}}>
-            <Layout.Sider breakpoint="lg"
-                          collapsedWidth="0"
-                          zeroWidthTriggerStyle={{top: 0}}
-            >
-                <Menu theme="dark"
-                      mode="inline"
-                      onClick={(info) => {
-                          if (info.key !== 'new') {
-                              navigate({
-                                  pathname: info.key,
-                              })
-                          }
-                      }} selectedKeys={route.map(r => r.pathname)} items={menu}/>
-            </Layout.Sider>
+        <>
+            <Row
+                style={{height: '25px', borderBottom: '1px solid #1677ff', position: "absolute", top: 0, right: 0, zIndex: 100, marginLeft: 50, paddingRight: 10, paddingTop: 2}}>
+                <MowerStatus/>
+            </Row>
             <Layout style={{height: "100%"}}>
-                <Layout.Content style={{padding: "10px 24px 0px 24px", height: "100%", backgroundColor: 'white'}}>
-                    <Outlet/>
-                </Layout.Content>
+                <Layout.Sider breakpoint="lg"
+                            collapsedWidth="0"
+                            zeroWidthTriggerStyle={{top: 0}}
+                >
+                    <Menu theme="dark"
+                        mode="inline"
+                        onClick={(info) => {
+                            if (info.key !== 'new') {
+                                navigate({
+                                    pathname: info.key,
+                                })
+                            }
+                        }} selectedKeys={route.map(r => r.pathname)} items={menu}/>
+                </Layout.Sider>
+                <Layout style={{height: "100%"}}>
+                    <Layout.Content style={{padding: "10px 24px 0px 24px", height: "100%", backgroundColor: 'white'}}>
+                        <Outlet/>
+                    </Layout.Content>
+                </Layout>
             </Layout>
-        </Layout>);
+        </>
+    );
 }
+
+export default Root;
