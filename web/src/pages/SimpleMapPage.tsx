@@ -250,7 +250,10 @@ export const SimpleMapPage = () => {
                 return []
             }
             const centroidPt = centroid(feature);
-            centroidPt.properties.title = feature.properties?.title;
+            if (centroidPt.properties != null) {
+                centroidPt.properties.title = feature.properties?.title;
+                centroidPt.properties.index = feature.properties?.index;
+            }
             centroidPt.id = feature.id
             return [centroidPt];
         })
